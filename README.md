@@ -30,6 +30,18 @@ Timings between characters and words are currently hardcoded in ms. This isn't h
 | PIN 9         | to buzzer            |
 | GND           | to GNDs              |
 
+### Using menu
+
+To enter in Menu mode need to long press (more than a second) on *Func* button. The first menu item will be printed in your current cursor position
+
+| Morse code | Menu behavior                                             |
+|:----------:|-----------------------------------------------------------|
+| *dot*      | move to next menu item                                    |
+| *dash*     | enter in sub menu or apply menu item                      |
+| *dot-dot*  | move back on previous sub menu item or exit from the menu |
+
+Menu mode will be closed after 10 seconds of innactivity
+
 ### TODO list
 
 * Include timings in settings
