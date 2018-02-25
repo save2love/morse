@@ -1,13 +1,13 @@
 // Turns Morse key into USB keyboard
 #include <Keyboard.h>
-#include <Bounce2.h> // include de-bounce library
+#include <Bounce2.h>
 #include "Config.h"
 #include "Menu.h"
 
-const uint8_t ledPin = 4;       // LED pin
-const uint8_t buzzPin = 9;      // Buzzer pin
-const uint8_t funcKeyPin = 8;   // Functional key pin
-const uint8_t morseKeyPin = 7;  // Morse Key pin
+const uint8_t ledPin      = 4; // LED pin
+const uint8_t buzzPin     = 9; // Buzzer pin
+const uint8_t funcKeyPin  = 8; // Functional key pin
+const uint8_t morseKeyPin = 7; // Morse Key pin
 
 Bounce funcKey = Bounce(funcKeyPin, 10);  // 10 ms debounce
 Bounce morseKey = Bounce(morseKeyPin, 10);  // 10 ms debounce
@@ -110,7 +110,7 @@ void loop()
   }
 
   if (funcKeyButtonState == 1 && millis() - funcKeyPressedAt >= 1000)
-  { // Long press (> 3 sec)
+  { // Long press (> 1 sec)
     funcKeyButtonState = 0;
     State = ST_Menu;    // If device was in normal state and func key was pressed more than 3 sec - go to Menu Mode
     menu.toRoot();      // Reset menu
@@ -264,7 +264,7 @@ bool evaluateEnglishLetter() {
   return true;
 }
 
-// Use english key codes to print russian letters
+// Using latin key codes to print russian letters
 bool evaluateRussianLetter() {
   if (inputString == ".-") {
     pressKey(Config.IsCapitalize ? 'F' : 'f'); // А
@@ -363,6 +363,49 @@ bool evaluateNumbers() {
   return true;
 }
 
+bool evaluateSpecials() {
+  if (inputString == ".-.-.-") {         // . Period
+    pressKey('.');
+  } else if (inputString == "--..--") {  // , Comma
+    pressKey(',');
+  } else if (inputString == "..--..") {  // ? Question mark
+    pressKey('?');
+  } else if (inputString == ".----.") {  // ` Apostrophe
+    pressKey('`');
+  } else if (inputString == "-.-.--") {  // ! Exclamation mark
+    pressKey('!');
+  } else if (inputString == "-..-.") {   // / Slash, Fraction bar
+    pressKey('/');
+  } else if (inputString == "-.--.") {   // ( Parenthesis open
+    pressKey('(');
+  } else if (inputString == "-.--.-") {  // ) Parentheses closed
+    pressKey(')');
+  } else if (inputString == ".-...") {   // & Ampersand, Wait
+    pressKey('&');
+  } else if (inputString == "---...") {  // : Colon
+    pressKey(':');
+  } else if (inputString == "-.-.-.") {  // ; Semicolon
+    pressKey(';');
+  } else if (inputString == "-...-") {   // = Double dash
+    pressKey('=');
+  } else if (inputString == ".-.-.") {   // + Plus
+    pressKey('+');
+  } else if (inputString == "-....-") {  // - Hyphen, Minus
+    pressKey('-');
+  } else if (inputString == "..--.-") {  // _ Underscore
+    pressKey('_');
+  }  else if (inputString == ".-..-.") { // " Quotation mark
+    pressKey('"');
+  } else if (inputString == "...-..-") { // $ Dollar sign
+    pressKey('$');
+  } else if (inputString == ".--.-.") {  // @ At sign
+    pressKey('@');
+  }  else {
+    return false;
+  }
+  return true;
+}
+
 void evaluateLetter()
 {
 #ifdef DEBUG
@@ -375,8 +418,8 @@ void evaluateLetter()
     case 1: if (evaluateRussianLetter()) return; break;
   }
 
-  if (!evaluateNumbers()) {
-#endif DEBUG
+  if (!evaluateNumbers() && !evaluateSpecials()) {
+#ifdef DEBUG
     Serial.print("Unknown sequence: ");
     Serial.println(inputString);
 #endif

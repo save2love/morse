@@ -18,7 +18,7 @@ Unrecognised characters are printed out as a dash, or "-".
 
 Timings between characters and words are currently hardcoded in ms. This isn't hugely accurate since different operators will key at different speeds, but the hardcoded timings can easily be tweaked.
 
-#### Schema and pinout
+### Schema and pinout
 
 ![morse key usb keyboard schema](https://github.com/save2love/morse/raw/master/schema.png "Morse Key USB Keyboard schema")
 
