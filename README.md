@@ -4,6 +4,8 @@
 
 This repo contains code to convert a physical Morse key into a USB keyboard, via a Teensy 3.2 or Arduino ProMicro. This means you can plug the Morse key into any laptop or computer and use it in exactly the same way as a conventional keyboard, except you type in Morse and the characters appear on your screen.
 
+![morse key usb keyboard](https://github.com/save2love/morse/raw/master/morsekey.png "Morse Key USB Keyboard")
+
 ### Features
 
 * Supports English and Russian Morse alphabets
@@ -18,7 +20,7 @@ Timings between characters and words are currently hardcoded in ms. This isn't h
 
 #### Schema and pinout
 
-![alt text](https://github.com/save2love/morse/raw/master/schema.png "Logo Title Text 1")
+![morse key usb keyboard schema](https://github.com/save2love/morse/raw/master/schema.png "Morse Key USB Keyboard schema")
 
 | ProMicro pins | Target               |
 | ------------- |----------------------|
